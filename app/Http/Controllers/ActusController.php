@@ -59,6 +59,8 @@ class ActusController extends Controller
 
     }
 
+    
+    
     /* Mise a jour de l'actualité */
     public function update($id=0){
 
