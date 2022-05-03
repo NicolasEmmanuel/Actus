@@ -27,5 +27,9 @@ route::get('/detail/{id}' , [ActusController::class ,'detail']);
 route::get('/create' , [ActusController::class ,'create']);
 route::post('/save' , [ActusController::class ,'save']);
 
-route::post('/update/{id}' , [ActusController::class ,'save']);
 
+
+
+route::get('/modifier/{id}' , [ActusController::class ,'modifier']);
+route::post('/update' , [ActusController::class ,'update']);
+route::get('/delete/{id}' , [ActusController::class ,'delete']);

@@ -18,8 +18,7 @@ class ActusController extends Controller
     public function detail($id=0){ /*Reçois l'id  */
 
     $actu = Actualite::where("id" , $id)-> first();/* Selectionne l'actualité portant l'identifiant $id*/
-
-    /* SELECT * FROM Actu WHERE id = $id ORDER BY id ASC LIMIT:1  */
+    /*Meme chose en requete SQL : SELECT * FROM Actu WHERE id = $id ORDER BY id ASC LIMIT:1  */
 
         return view('DetailActu' , compact('actu'));
 
@@ -40,7 +39,9 @@ class ActusController extends Controller
 
        /*  dd($validates); */ /*Enregistrement dans ma database  */
        /** 
-       1/Enregistrement dans ma database.
+       Enregistrement dans ma database.
+
+       1/Creation de mon instance
 
        2/Création de mon instance d'enregistrement a l'aide de mon model "Actualite".
 
@@ -56,14 +57,38 @@ class ActusController extends Controller
        $SaveActualite -> save();
 
        return back();/* Redirection vers ma page de formulaire */
-
     }
 
     
     
-    /* Mise a jour de l'actualité */
-    public function update($id=0){
+    /* Modification  de l'actualité */
+    public function modifier($id=0){
+        $actu = Actualite::where("id" , $id)-> first();/* Selectionne l'actualité portant l'identifiant $id*/
 
+        return view('modifier', compact('actu'));
+    }
+
+    
+    public function update(Request $request){
+
+        $validates = $request ->validate([
+                                            "id"   =>"required",
+                                            "titre"=>"required"
+                                         ]);
+
+
+            $Update = Actualite::find($request -> id);
+            $Update->titre  = $request->titre;
+            $Update->detail = $request->detail;
+            $Update->save();
+
+            return back();/* Redirection vers ma page de formulaire */
+    }
+
+    public function delete($id=0){
+
+        $delete = Actualite::find($id);
+        $delete->delete();
 
         return back();
     }
